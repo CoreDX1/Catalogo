@@ -1,4 +1,4 @@
-﻿namespace Catalogo.Models;
+﻿namespace Catalogo.Models.Entities;
 
 public partial class Inventario
 {
