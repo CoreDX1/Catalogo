@@ -57,3 +57,5 @@ insert into Productos
 values
     ('zapatillas de running supernova rise', 'Para pies delgados recomendamos comprar el talle inferior', 169999.00, 1, 1, 3),
     ('zapatillas de running 4dfwd x strung 4d', 'Para pies delgados recomendamos comprar el talle inferior',378999.00, 1, 2, 4);
+
+
