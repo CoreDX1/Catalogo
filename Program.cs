@@ -1,3 +1,6 @@
+using Catalogo.Data;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -6,6 +9,11 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddControllers();
+
+builder.Services.AddDbContext<AlmacenDbContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("StringConnection"));
+});
 
 var app = builder.Build();
 
