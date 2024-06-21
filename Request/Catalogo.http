@@ -4,3 +4,13 @@ GET {{HostAddress}}/api/product/getproducts
 Accept: application/json
 
 ###
+
+POST {{HostAddress}}/api/product/getfilterproduct
+Accept: application/json
+Content-Type: application/json
+
+{
+      "name" : "rise"
+}
+
+###

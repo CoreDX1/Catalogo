@@ -1,4 +1,6 @@
-﻿namespace Catalogo.Models.Entities;
+﻿using System.Text.Json.Serialization;
+
+namespace Catalogo.Models.Entities;
 
 public partial class Producto
 {
@@ -10,8 +12,10 @@ public partial class Producto
 
     public decimal Precio { get; set; }
 
+    [JsonIgnore]
     public int CategoriaId { get; set; }
 
+    [JsonIgnore]
     public int ImagenId { get; set; }
 
     public int Stars { get; set; }

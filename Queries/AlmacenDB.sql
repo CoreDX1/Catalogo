@@ -6,6 +6,7 @@ CREATE TABLE Categorias
     Descripcion NVARCHAR(MAX)
 );
 
+
 -- Tabla de Imagenes
 CREATE TABLE Imagenes
 (
@@ -59,3 +60,28 @@ values
     ('zapatillas de running 4dfwd x strung 4d', 'Para pies delgados recomendamos comprar el talle inferior',378999.00, 1, 2, 4);
 
 
+
+    
+select C.Nombre, P.Nombre, P.Descripcion, I.Imagen,P.Precio from Productos as P
+join Imagenes as I on P.ImagenID = I.ImagenID
+join Categorias as C on P.CategoriaID = C.CategoriaID 
+where C.CategoriaID = 1;
+
+GO
+
+CREATE PROCEDURE GetProductosPorCategoria
+    @CategoriaID INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT C.Nombre AS Categoria,
+           P.Nombre AS Producto,
+           P.Descripcion,
+           I.Imagen,
+           P.Precio
+    FROM Productos P
+    JOIN Imagenes I ON P.ImagenID = I.ImagenID
+    JOIN Categorias C ON P.CategoriaID = C.CategoriaID
+    WHERE C.CategoriaID = @CategoriaID;
+END

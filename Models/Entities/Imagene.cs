@@ -1,4 +1,6 @@
-﻿namespace Catalogo.Models.Entities;
+﻿using System.Text.Json.Serialization;
+
+namespace Catalogo.Models.Entities;
 
 public partial class Imagene
 {
@@ -8,5 +10,6 @@ public partial class Imagene
 
     public string NameImagen { get; set; } = null!;
 
+    [JsonIgnore]
     public virtual ICollection<Producto> Productos { get; set; } = new List<Producto>();
 }
