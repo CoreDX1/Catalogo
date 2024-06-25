@@ -17,7 +17,7 @@ builder.Services.AddControllers();
 
 builder.Services.AddDbContext<AlmacenDbContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("StringConnection"));
+	options.UseSqlServer(builder.Configuration.GetConnectionString("StringConnection"));
 });
 
 var app = builder.Build();
@@ -25,8 +25,8 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+	app.UseSwagger();
+	app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();
