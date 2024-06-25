@@ -142,3 +142,4 @@
 /home/core/Desktop/Project/Catalogo/bin/Debug/net8.0/View/tsconfig.app.json
 /home/core/Desktop/Project/Catalogo/bin/Debug/net8.0/View/tsconfig.json
 /home/core/Desktop/Project/Catalogo/bin/Debug/net8.0/View/tsconfig.spec.json
+/home/core/Desktop/Project/Catalogo/obj/Debug/net8.0/Catalogo.sourcelink.json

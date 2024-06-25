@@ -20,6 +20,21 @@ builder.Services.AddDbContext<AlmacenDbContext>(options =>
 	options.UseSqlServer(builder.Configuration.GetConnectionString("StringConnection"));
 });
 
+var AllowOrigins = "_allowSpecificOrigins";
+
+builder.Services.AddCors(options =>
+{
+	options.AddPolicy(
+		name: AllowOrigins,
+		builder =>
+		{
+			builder.AllowAnyOrigin();
+			builder.AllowAnyMethod();
+			builder.AllowAnyHeader();
+		}
+	);
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -29,7 +44,12 @@ if (app.Environment.IsDevelopment())
 	app.UseSwaggerUI();
 }
 
+app.UseCors(AllowOrigins);
+
 app.UseHttpsRedirection();
+
+app.UseAuthorization();
+app.UseAuthentication();
 
 // Add the endpoint for the API
 app.MapControllers();
