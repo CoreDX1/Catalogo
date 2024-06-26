@@ -5,7 +5,9 @@ namespace Catalogo.Models.Interfaces;
 
 public interface IProductRepository
 {
-    Task<IEnumerable<Producto>> GetProducts();
-    Task<IEnumerable<Producto>> GetProductsByCategory(int category);
-    public Task<IEnumerable<Producto>> GetFilterProduct(FilterRequestDto filter);
+	Task<IEnumerable<Producto>> GetProducts();
+	Task<IEnumerable<Producto>> GetProductsByCategory(int category);
+	Task<IEnumerable<Producto>> GetFilterProduct(FilterRequestDto filter);
+
+	Task<IEnumerable<Producto>> GetProductsName(string name);
 }

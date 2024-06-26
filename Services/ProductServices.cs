@@ -33,6 +33,33 @@ public class ProductServices : IProductServices
 		return ApiResult<IEnumerable<ProductResponseDto>>.Success(productsDto, "Success", 200);
 	}
 
+	public async Task<ApiResult<IEnumerable<ProductResponseDto>>> SearchProducts(string name)
+	{
+		var products = await _productRepository.GetProductsName(name);
+
+		if (!products.Any())
+		{
+			return ApiResult<IEnumerable<ProductResponseDto>>.Error("Product not found", 404);
+		}
+
+		var productsDto = GetProductResponseDto(products);
+
+		return ApiResult<IEnumerable<ProductResponseDto>>.Success(productsDto, "Success", 200);
+	}
+
+	public async Task<ApiResult<IEnumerable<ProductResponseDto>>> GetProductsByCategory(int categoryId)
+	{
+		var products = await _productRepository.GetProductsByCategory(categoryId);
+		if (!products.Any())
+		{
+			return ApiResult<IEnumerable<ProductResponseDto>>.Error("Product not found", 404);
+		}
+
+		var productsDto = GetProductResponseDto(products);
+
+		return ApiResult<IEnumerable<ProductResponseDto>>.Success(productsDto, "Success", 200);
+	}
+
 	private IEnumerable<ProductResponseDto> GetProductResponseDto(IEnumerable<Producto> p)
 	{
 		var productsDto = p.Select(p => new ProductResponseDto
@@ -42,9 +69,10 @@ public class ProductServices : IProductServices
 			Description = p.Descripcion,
 			Stars = p.Stars,
 			Price = p.Precio,
-			Image = p.Imagen.Imagen,
-			Category = p.Categoria.Nombre
+			Image = p.Imagen?.Imagen,
+			Category = p.Categoria?.Nombre
 		});
+
 		return productsDto;
 	}
 }
