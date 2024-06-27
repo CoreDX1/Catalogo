@@ -117,8 +117,8 @@ public class ProductRepository : IProductRepository
 
 	public async Task<IEnumerable<Producto>> GetProductForCategory(int id)
 	{
-		var productByCategory = await _context
-			.Productos.Where(p => p.ProductoId == id)
+		var products = await _context
+			.Productos.Where(p => p.CategoriaId == id)
 			.Select(p => new Producto
 			{
 				ProductoId = p.ProductoId,
@@ -131,6 +131,6 @@ public class ProductRepository : IProductRepository
 			})
 			.ToListAsync();
 
-		return productByCategory;
+		return products;
 	}
 }

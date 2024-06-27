@@ -46,6 +46,7 @@ public class ProductController : Controller
 	[HttpGet]
 	[Route("GetProductsByCategory/{categoryId}")]
 	[ProducesResponseType(typeof(IEnumerable<Producto>), StatusCodes.Status200OK)]
+	[ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
 	public async Task<IActionResult> GetProductsByCategory([FromRoute] int categoryId)
 	{
 		var products = await _productServices.GetProductsByCategory(categoryId);
