@@ -88,7 +88,7 @@ public class ProductRepository : IProductRepository
 			query = query.Where(p => p.Stars == filter.Stars);
 		}
 
-		if (filter.PriceMin != 0 && filter.PriceMax != 0)
+		if (filter.PriceMax > 0 && filter.PriceMin > 0)
 		{
 			query = query.Where(p => p.Precio >= filter.PriceMin && p.Precio <= filter.PriceMax);
 		}

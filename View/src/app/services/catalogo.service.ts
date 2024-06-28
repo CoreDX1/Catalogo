@@ -9,6 +9,8 @@ import { Observable } from 'rxjs';
     providedIn: 'root',
 })
 export class CatalogoService {
+    private readonly url = 'http://localhost:5271/api/product';
+
     constructor(private http: HttpClient) {}
 
     httpOptions = {
@@ -18,8 +20,7 @@ export class CatalogoService {
     };
 
     public getCatalogo() {
-        const url = 'http://localhost:5271/api/product';
-        const products = this.http.get<ApiResponse<Product[]>>(`${url}/getproducts`, this.httpOptions);
+        const products = this.http.get<ApiResponse<Product[]>>(`${this.url}/getproducts`, this.httpOptions);
         return products;
     }
 
@@ -27,5 +28,9 @@ export class CatalogoService {
         const url = 'http://localhost:5271/api/product';
         var products = this.http.post<ApiResponse<Product[]>>(`${url}/getfilterproduct`, filter, this.httpOptions);
         return products;
+    }
+
+    public getSearchProducts(searchValue: string): Observable<ApiResponse<Product[]>> {
+        return this.http.get<ApiResponse<Product[]>>(`${this.url}/searchproducts?title_like=${searchValue}`);
     }
 }

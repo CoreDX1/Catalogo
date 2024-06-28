@@ -35,11 +35,11 @@ public class ProductController : Controller
 	}
 
 	[HttpGet]
-	[Route("SearchProducts/{name}")]
+	[Route("SearchProducts")]
 	[ProducesResponseType(typeof(IEnumerable<Producto>), StatusCodes.Status200OK)]
-	public async Task<IActionResult> SearchProducts([FromRoute] string name)
+	public async Task<IActionResult> SearchProducts([FromQuery] string title_like)
 	{
-		var products = await _productServices.SearchProducts(name);
+		var products = await _productServices.SearchProducts(title_like);
 		return Ok(products);
 	}
 

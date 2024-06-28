@@ -1,7 +1,6 @@
 using Catalogo.Models.BaseResponse;
 using Catalogo.Models.Dto.Request;
 using Catalogo.Models.Dto.Response;
-using Catalogo.Models.Entities;
 
 namespace Catalogo.Models.Interfaces;
 

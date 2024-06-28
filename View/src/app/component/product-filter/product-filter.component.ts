@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FilterProductRequest } from '../../model/Request/FilterProductRequest';
 import { ProductComponent } from '../product/product.component';
 import { ApiResponse } from '../../model/ApiResponse/Response';
@@ -12,11 +12,11 @@ import { FormsModule } from '@angular/forms';
     imports: [ProductComponent, FormsModule],
     templateUrl: './product-filter.component.html',
 })
-export class ProductFilterComponent {
+export class ProductFilterComponent implements OnInit {
     public formFilter: FilterProductRequest = {
         name: '',
         category: 0,
-        priceMin: 0,
+        priceMin: 1,
         priceMax: 0,
         stock: 0,
         description: '',
@@ -26,28 +26,19 @@ export class ProductFilterComponent {
         order: 0,
     };
 
-    public filterProducts(filter: FilterProductRequest) {
-        this.formFilter = filter;
-    }
-    public products: ApiResponse<Product[]> = {
-        data: [],
-        metadata: {
-            statusCode: 0,
-            message: '',
-        },
-    };
+    public searchValue: string = '';
 
-    private readonly catalogoService: CatalogoService;
+    public products: ApiResponse<Array<Product>> = {} as ApiResponse<Array<Product>>;
 
-    constructor(catalogoService: CatalogoService) {
-        this.catalogoService = catalogoService;
-    }
+    public findProducts: ApiResponse<Array<Product>> = {} as ApiResponse<Array<Product>>;
+
+    constructor(private catalogoService: CatalogoService) {}
 
     public ngOnInit() {
         this.fethchCatalogo();
     }
 
-    public fethchCatalogo = async () => {
+    public fethchCatalogo = () => {
         this.catalogoService.getCatalogo().subscribe({
             next: (data) => {
                 this.products = data;
@@ -55,10 +46,18 @@ export class ProductFilterComponent {
         });
     };
 
-    public PostProductFilter = async () => {
+    public PostProductFilter = () => {
         this.catalogoService.postProductFilter(this.formFilter).subscribe({
             next: (data) => {
                 this.products = data;
+            },
+        });
+    };
+
+    public getSearchProducts = () => {
+        this.catalogoService.getSearchProducts(this.searchValue).subscribe({
+            next: (data) => {
+                this.findProducts = data;
             },
         });
     };
