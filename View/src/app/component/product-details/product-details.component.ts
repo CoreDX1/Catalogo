@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { CatalogoService } from '../../services/catalogo.service';
 import { Product } from '../../model/product';
 
 @Component({
     selector: 'app-product-details',
     standalone: true,
-    imports: [],
+    imports: [RouterModule],
     templateUrl: './product-details.component.html',
 })
 export default class ProductDetailsComponent implements OnInit {
