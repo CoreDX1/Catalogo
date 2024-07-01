@@ -1,11 +1,12 @@
-import { Component, Input, OnInit, input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Product } from '../../model/product';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 @Component({
     selector: 'app-product-cart',
     standalone: true,
-    imports: [FormsModule],
+    imports: [FormsModule, RouterModule],
     templateUrl: './product-cart.component.html',
 })
 export class ProductCartComponent {
