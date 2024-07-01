@@ -51,4 +51,15 @@ public class ProductController : Controller
 		var products = await _productServices.GetProductsByCategory(categoryId);
 		return Ok(products);
 	}
+
+	[HttpGet]
+	[Route("findProductForName/{name}")]
+	[ProducesResponseType(typeof(IEnumerable<Producto>), StatusCodes.Status200OK)]
+	public async Task<IActionResult> FundProductForName([FromRoute] string name)
+	{
+		Console.WriteLine(name);
+		var formmatedName = name.Replace("-", " ");
+		var products = await _productServices.GetFindProductForName(formmatedName);
+		return Ok(products);
+	}
 }

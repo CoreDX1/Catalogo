@@ -108,4 +108,10 @@
     <!--- Reset -->
 
     <app-product [products]="products" />
+
+    <router-outlet>
+        <a routerLink="/product-details" ng-reflect-router-link href="/product-details">
+            <button class="btn btn-primary bg-blue-500 text-white py-2 px-4 rounded">Details</button>
+        </a>
+    </router-outlet>
 </div>

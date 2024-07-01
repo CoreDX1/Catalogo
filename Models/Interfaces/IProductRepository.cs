@@ -10,4 +10,6 @@ public interface IProductRepository
 	Task<IEnumerable<Producto>> GetFilterProduct(FilterRequestDto filter);
 
 	Task<IEnumerable<Producto>> GetProductsName(string name);
+
+	public Task<Producto> FindProductForName(string name);
 }

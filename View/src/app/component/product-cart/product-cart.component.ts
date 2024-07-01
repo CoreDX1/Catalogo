@@ -1,6 +1,6 @@
-import { Component, Input, OnInit, input } from '@angular/core'
-import { Product } from '../../model/product'
-import { FormsModule } from '@angular/forms'
+import { Component, Input, OnInit, input } from '@angular/core';
+import { Product } from '../../model/product';
+import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'app-product-cart',
@@ -9,15 +9,20 @@ import { FormsModule } from '@angular/forms'
     templateUrl: './product-cart.component.html',
 })
 export class ProductCartComponent {
-    @Input() product: Product = {} as Product
+    @Input() product: Product = {} as Product;
 
     public FormatPrice(price: number): string {
-        var priceFormat = new Intl.NumberFormat('es-AR').format(price)
-        var priceArgen = '$' + priceFormat
-        return priceArgen
+        var priceFormat = new Intl.NumberFormat('es-AR').format(price);
+        var priceArgen = '$' + priceFormat;
+        return priceArgen;
     }
 
     public CountStars(stars: number): number[] {
-        return new Array(stars)
+        return new Array(stars);
+    }
+
+    public FormatName(name: string): string {
+        var nameFormat = name.split(' ').join('-');
+        return nameFormat;
     }
 }

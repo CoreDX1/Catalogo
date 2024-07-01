@@ -133,4 +133,29 @@ public class ProductRepository : IProductRepository
 
 		return products;
 	}
+
+	public async Task<Producto> FindProductForName(string name)
+	{
+		var product = await _context
+			.Productos.AsNoTracking()
+			.Where(p => p.Nombre == name)
+			.Select(p => new Producto
+			{
+				ProductoId = p.ProductoId,
+				Nombre = p.Nombre,
+				Descripcion = p.Descripcion,
+				Stars = p.Stars,
+				Precio = p.Precio,
+				Imagen = p.Imagen,
+				Categoria = p.Categoria
+			})
+			.FirstOrDefaultAsync();
+
+		if (product == null)
+		{
+			return null!;
+		}
+
+		return product;
+	}
 }

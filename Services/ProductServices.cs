@@ -60,6 +60,29 @@ public class ProductServices : IProductServices
 		return ApiResult<IEnumerable<ProductResponseDto>>.Success(productsDto, "Success", 200);
 	}
 
+	public async Task<ApiResult<ProductResponseDto>> GetFindProductForName(string name)
+	{
+		var product = await _productRepository.FindProductForName(name);
+
+		if (product == null)
+		{
+			return ApiResult<ProductResponseDto>.Error("Product not found", 404);
+		}
+
+		var productDto = new ProductResponseDto
+		{
+			Id = product.ProductoId,
+			Name = product.Nombre,
+			Description = product.Descripcion,
+			Stars = product.Stars,
+			Price = product.Precio,
+			Image = product.Imagen?.Imagen,
+			Category = product.Categoria?.Nombre
+		};
+
+		return ApiResult<ProductResponseDto>.Success(productDto, "Success", 200);
+	}
+
 	private IEnumerable<ProductResponseDto> GetProductResponseDto(IEnumerable<Producto> p)
 	{
 		var productsDto = p.Select(p => new ProductResponseDto

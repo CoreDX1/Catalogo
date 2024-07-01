@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { FilterProductRequest } from '../../model/Request/FilterProductRequest';
 import { ProductComponent } from '../product/product.component';
@@ -7,14 +7,16 @@ import { Product } from '../../model/product';
 import { CatalogoService } from '../../services/catalogo.service';
 import { FormsModule } from '@angular/forms';
 import { debounceTime, switchMap } from 'rxjs';
+import { RouterModule } from '@angular/router';
+import ProductDetailsComponent from '../product-details/product-details.component';
 
 @Component({
     selector: 'app-product-filter',
     standalone: true,
-    imports: [ProductComponent, FormsModule, ReactiveFormsModule],
+    imports: [ProductComponent, FormsModule, ReactiveFormsModule, RouterModule, ProductDetailsComponent],
     templateUrl: './product-filter.component.html',
 })
-export class ProductFilterComponent implements OnInit {
+export default class ProductFilterComponent implements OnInit {
     public formFilter: FilterProductRequest = {
         name: '',
         category: 0,

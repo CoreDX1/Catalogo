@@ -1,5 +1,5 @@
 <div class="grid grid-cols-5 gap-10 m-10">
-  @for (product of products.data; track product.id) {
-    <app-product-cart [product]="product"></app-product-cart>
-  }
+    @for (product of products.data; track $index) {
+        <app-product-cart [product]="product"></app-product-cart>
+    }
 </div>
