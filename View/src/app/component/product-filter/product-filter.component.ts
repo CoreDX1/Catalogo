@@ -6,7 +6,6 @@ import { ApiResponse } from '../../model/ApiResponse/Response';
 import { Product } from '../../model/product';
 import { CatalogoService } from '../../services/catalogo.service';
 import { FormsModule } from '@angular/forms';
-import { debounceTime, switchMap } from 'rxjs';
 import { RouterModule } from '@angular/router';
 import ProductDetailsComponent from '../product-details/product-details.component';
 
@@ -30,31 +29,15 @@ export default class ProductFilterComponent implements OnInit {
         order: 0,
     };
 
-    public searchValue: string = '';
-
     public products: ApiResponse<Array<Product>> = {} as ApiResponse<Array<Product>>;
 
-    public findProducts: ApiResponse<Array<Product>> = {} as ApiResponse<Array<Product>>;
-
-    public searchForm = this.fb.nonNullable.group({
-        searchValue: [''],
-    });
-
-    constructor(
-        private catalogoService: CatalogoService,
-        private fb: FormBuilder
-    ) {}
+    constructor(private catalogoService: CatalogoService) {}
 
     public ngOnInit() {
-        this.fethchCatalogo();
-        this.liveSearch();
+        this.loadCatalog();
     }
 
-    public ngOnDestroy() {
-        this.liveSearch();
-    }
-
-    public fethchCatalogo = () => {
+    public loadCatalog = () => {
         this.catalogoService.getCatalogo().subscribe({
             next: (data) => {
                 this.products = data;
@@ -70,37 +53,8 @@ export default class ProductFilterComponent implements OnInit {
         });
     };
 
-    public getSearchProducts = () => {
-        this.catalogoService.getSearchProducts(this.searchValue).subscribe({
-            next: (data) => {
-                this.findProducts = data;
-            },
-        });
-    };
     public FormatName(name: string): string {
         var nameFormat = name.split(' ').join('-');
         return nameFormat;
-    }
-
-    public onSearchSubmit() {
-        this.searchValue = this.searchForm.value.searchValue ?? '';
-        this.getSearchProducts();
-    }
-
-    public liveSearch() {
-        this.searchForm.valueChanges
-            .pipe(
-                debounceTime(300), // Espera 300ms después de que el usuario deja de escribir
-                switchMap((value) => {
-                    return value.searchValue
-                        ? this.catalogoService.getSearchProducts(value.searchValue)
-                        : this.catalogoService.getCatalogo();
-                })
-            )
-            .subscribe({
-                next: (data) => {
-                    this.findProducts = data;
-                },
-            });
     }
 }

@@ -1,0 +1,23 @@
+<div class="relative">
+    <form [formGroup]="searchForm" class="w-full" (ngSubmit)="onSearchSubmit()">
+        <input type="text" placeholder="Search" formControlName="searchValue" class="form-control mt-1 block w-full" />
+    </form>
+
+    <div class="flex flex-col gap-4 px-2 absolute top-12 left-0 right-0 z-10">
+        @for (product of findProducts.data; track product.id) {
+            <div
+                class="relative flex flex-row w-auto overflow-hidden rounded-lg border border-gray-100 bg-white shadow-md">
+                <a class="relative mx-3 mt-3 flex overflow-hidden rounded-xl">
+                    <img class="object-cover w-auto h-12" src="/images/{{ product.image }}" alt="product image" />
+                </a>
+                <div class="mt-4 px-5 pb-5">
+                    <a
+                        routerLink="/product-details/{{ FormatName(product.name) }}"
+                        class="text-xl leading-4 text-gray-600 hover:text-gray-900 cursor-pointer">
+                        <h5 class="text-xl tracking-tight text-slate-900">{{ product.name }}</h5>
+                    </a>
+                </div>
+            </div>
+        }
+    </div>
+</div>

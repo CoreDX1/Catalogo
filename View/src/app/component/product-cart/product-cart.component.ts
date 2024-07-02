@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Product } from '../../model/product';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
     selector: 'app-product-cart',
@@ -11,6 +11,8 @@ import { RouterModule } from '@angular/router';
 })
 export class ProductCartComponent {
     @Input() product: Product = {} as Product;
+
+    constructor(private router: Router) {}
 
     public FormatPrice(price: number): string {
         var priceFormat = new Intl.NumberFormat('es-AR').format(price);
@@ -23,7 +25,11 @@ export class ProductCartComponent {
     }
 
     public FormatName(name: string): string {
-        var nameFormat = name.split(' ').join('-');
-        return nameFormat;
+        return name.toLocaleLowerCase().split(' ').join('-');
+    }
+
+    public navigateToProductDetails(name: string) {
+        const formattedName = this.FormatName(name);
+        this.router.navigate(['/product-details', formattedName]);
     }
 }
