@@ -52,9 +52,4 @@ export default class ProductFilterComponent implements OnInit {
             },
         });
     };
-
-    public FormatName(name: string): string {
-        var nameFormat = name.split(' ').join('-');
-        return nameFormat;
-    }
 }

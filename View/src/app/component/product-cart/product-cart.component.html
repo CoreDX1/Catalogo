@@ -17,7 +17,7 @@
                 <span class="text-3xl font-bold text-slate-900">{{ FormatPrice(product.price) }}</span>
             </p>
             <div class="flex items-center">
-                @for (start of CountStars(product.stars); track $index) {
+                @for (start of utils.CountStars(product.stars); track $index) {
                     <img src="assets/icons/star.svg" />
                 }
                 <span class="mr-2 ml-3 rounded bg-yellow-200 px-2.5 py-0.5 text-xs font-semibold"

@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Product } from '../../model/product';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
+import { ProductUtils } from '../../shared/product-utils';
 
 @Component({
     selector: 'app-product-cart',
@@ -12,6 +13,8 @@ import { Router, RouterModule } from '@angular/router';
 export class ProductCartComponent {
     @Input() product: Product = {} as Product;
 
+    public utils = new ProductUtils();
+
     constructor(private router: Router) {}
 
     public FormatPrice(price: number): string {
@@ -20,16 +23,8 @@ export class ProductCartComponent {
         return priceArgen;
     }
 
-    public CountStars(stars: number): number[] {
-        return new Array(stars);
-    }
-
-    public FormatName(name: string): string {
-        return name.toLocaleLowerCase().split(' ').join('-');
-    }
-
     public navigateToProductDetails(name: string) {
-        const formattedName = this.FormatName(name);
+        const formattedName = this.utils.FormatName(name);
         this.router.navigate(['/product-details', formattedName]);
     }
 }

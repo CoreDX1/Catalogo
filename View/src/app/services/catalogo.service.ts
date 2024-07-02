@@ -30,7 +30,7 @@ export class CatalogoService {
         return products;
     }
 
-    public getSearchProducts(searchValue: string): Observable<ApiResponse<Product[]>> {
+    public searchProductByName(searchValue: string): Observable<ApiResponse<Product[]>> {
         return this.http.get<ApiResponse<Product[]>>(`${this.url}/searchproducts?title_like=${searchValue}`);
     }
 
