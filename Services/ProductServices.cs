@@ -83,7 +83,7 @@ public class ProductServices : IProductServices
 		return ApiResult<ProductResponseDto>.Success(productDto, "Success", 200);
 	}
 
-	private IEnumerable<ProductResponseDto> GetProductResponseDto(IEnumerable<Producto> p)
+	private static IEnumerable<ProductResponseDto> GetProductResponseDto(IEnumerable<Producto> p)
 	{
 		var productsDto = p.Select(p => new ProductResponseDto
 		{

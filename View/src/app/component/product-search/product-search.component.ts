@@ -14,7 +14,7 @@ import { ProductUtils } from '../../shared/product-utils';
     templateUrl: './product-search.component.html',
 })
 export class ProductSearchComponent implements OnInit {
-    public searchValue: string = '';
+    private searchValue: string = '';
     public findProducts: ApiResponse<Array<Product>> = {} as ApiResponse<Array<Product>>;
     public utils = new ProductUtils();
 
@@ -32,27 +32,10 @@ export class ProductSearchComponent implements OnInit {
         this.setupLiveSearch();
     }
 
-    public onSearchSubmit() {
-        this.searchValue = this.searchForm.value.searchValue ?? '';
-        this.searchProductByName();
-    }
-    public searchProductByName = () => {
-        this.catalogoService.searchProductByName(this.searchValue).subscribe({
-            next: (data) => {
-                this.findProducts = data;
-            },
-        });
-    };
-
-    public navigateToProductDetails(name: string) {
-        const formattedName = this.utils.FormatName(name);
-        this.router.navigate(['/product-details', formattedName]);
-    }
-
-    public setupLiveSearch() {
+    private setupLiveSearch(): void {
         this.searchForm.valueChanges
             .pipe(
-                debounceTime(300), // Espera 300ms después de que el usuario deja de escribir
+                debounceTime(300),
                 switchMap((value) => {
                     return value.searchValue
                         ? this.catalogoService.searchProductByName(value.searchValue)
@@ -64,5 +47,32 @@ export class ProductSearchComponent implements OnInit {
                     this.findProducts = data;
                 },
             });
+    }
+
+    public onSearchSubmit(): void {
+        this.searchValue = this.searchForm.value.searchValue ?? '';
+        this.searchProductByName();
+    }
+
+    public searchProductByName(): void {
+        this.catalogoService.searchProductByName(this.searchValue).subscribe({
+            next: (data) => {
+                this.findProducts = data;
+            },
+        });
+    }
+
+    public navigateToProductDetails(name: string): void {
+        this.router.navigate(['/product-details', this.utils.FormatName(name)]);
+    }
+
+    public CloseSearch(): void {
+        this.findProducts = {
+            data: [],
+            metadata: {
+                statusCode: 0,
+                message: '',
+            },
+        };
     }
 }

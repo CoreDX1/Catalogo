@@ -1,4 +1,4 @@
-<div class="relative">
+<div class="relative" (click)="CloseSearch()">
     <form [formGroup]="searchForm" class="w-full" (ngSubmit)="onSearchSubmit()">
         <input type="text" placeholder="Search" formControlName="searchValue" class="form-control mt-1 block w-full" />
     </form>
@@ -7,14 +7,15 @@
         @for (product of findProducts.data; track product.id) {
             <div
                 class="relative flex flex-row w-auto overflow-hidden rounded-lg border border-gray-100 bg-slate-200 shadow-md">
-                <a
-                    (click)="navigateToProductDetails(product.name)"
-                    class="relative mx-3 mt-3 flex overflow-hidden rounded-xl">
-                    <img class="object-cover w-auto h-12" src="/images/{{ product.image }}" alt="product image" />
+                <a class="relative mx-3 mt-3 flex overflow-hidden rounded-xl">
+                    <img
+                        class="object-cover w-auto h-12"
+                        [src]="this.utils.PathImage(product.image)"
+                        alt="product image" />
                 </a>
                 <div class="">
                     <a
-                        routerLink="/product-details/{{ utils.FormatName(product.name) }}"
+                        (click)="navigateToProductDetails(product.name)"
                         class="text-xl leading-4 text-gray-600 hover:text-gray-900 cursor-pointer">
                         <h5 class="text-xl tracking-tight text-slate-900">{{ product.name }}</h5>
                     </a>
